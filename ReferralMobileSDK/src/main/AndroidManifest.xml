@@ -3,7 +3,4 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <application android:name="com.salesforce.referral_sdk.ReferralApplication"
-
-        />
 </manifest>
