@@ -3,18 +3,25 @@ package com.salesforce.referral.api
 import retrofit2.Response
 import java.io.IOException
 
-suspend fun <T: Any> safeApiCall(call: suspend () -> Response<T>): com.salesforce.referral.api.ApiResponse<T> {
+/**
+ * This function takes the network response and returns the response based on success or failure states.
+ * Wrapping the network request/response in this function helps reducing redundant code.
+ *
+ * It returns either a successful response containing data of type [T]
+ * or an Error response containing an exception/error message.
+ * or a NetWork Error if network is not available
+ */
+suspend fun <T: Any> safeApiCall(call: suspend () -> Response<T>): ApiResponse<T> {
     return try {
         val response = call.invoke()
         if (response.isSuccessful) {
-            com.salesforce.referral.api.ApiResponse.Success(response.body()!!)
+            ApiResponse.Success(response.body()!!)
         } else {
-            val errorMessage = response.errorBody()?.string()
-            com.salesforce.referral.api.ApiResponse.Error(errorMessage)
+            ApiResponse.Error(response.errorBody()?.string())
         }
     } catch (exception: IOException) {
-        com.salesforce.referral.api.ApiResponse.NetworkError
+        ApiResponse.NetworkError
     }  catch (exception: Exception) {
-        com.salesforce.referral.api.ApiResponse.Error(exception.message)
+        ApiResponse.Error(exception.message)
     }
 }
