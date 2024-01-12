@@ -17,20 +17,32 @@ const val ATTRIBUTES_COUNTRY = "Country__c"
  * In this case, membershipNumber is generated randomly and send it to the enrollment API
  */
 data class ReferralNewEnrollmentRequestBody(
+    @SerializedName("additionalMemberFieldValues")
     val additionalMemberFieldValues: ReferralAttributes?,
+    @SerializedName("associatedPersonAccountDetails")
     val associatedPersonAccountDetails: AssociatedPersonAccountDetails,
+    @SerializedName("enrollmentChannel")
     val enrollmentChannel: String,
+    @SerializedName("memberStatus")
     val memberStatus: String,
+    @SerializedName("membershipNumber")
     val membershipNumber: String,
+    @SerializedName("transactionJournalStatementFrequency")
     val transactionJournalStatementFrequency: String,
+    @SerializedName("transactionJournalStatementMethod")
     val transactionJournalStatementMethod: String
 )
 
 data class AssociatedPersonAccountDetails(
+    @SerializedName("additionalPersonAccountFieldValues")
     val additionalPersonAccountFieldValues: ReferralAttributes?,
+    @SerializedName("allowDuplicateRecords")
     val allowDuplicateRecords: String,
+    @SerializedName("email")
     val email: String,
+    @SerializedName("firstName")
     val firstName: String,
+    @SerializedName("lastName")
     val lastName: String
 )
 

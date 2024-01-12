@@ -30,7 +30,6 @@ class UnauthorizedInterceptor(
         } ?: chain.proceed(request)
         if (response.code == HttpURLConnection.HTTP_UNAUTHORIZED) {
             var newAccessToken: String?
-            // TODO: Need to check exactly y we r using Run blocking here ?
             runBlocking {
                 newAccessToken = authenticator.grantAccessToken()
             }

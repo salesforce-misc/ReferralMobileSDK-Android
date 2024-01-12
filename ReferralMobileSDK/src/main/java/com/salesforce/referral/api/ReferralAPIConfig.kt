@@ -8,8 +8,8 @@
 package com.salesforce.referral.api
 
 object ReferralAPIConfig {
-    const val REFERRAL_PROGRAM_NAME = "Referral Program"
     const val DATE_FORMAT_YYYYMMDDTHHMMSS = "yyyy-MM-dd'T'HH:mm:ss"
+    const val MEMBER_SHIP_RANDOM_NUMBER_COUNT = 8
 
     private const val MEMBER_API_SERVICES_PATH = "/services/data/"
     private const val API_VERSION_59 = "v59.0"

@@ -7,6 +7,7 @@ import com.salesforce.referral.TransactionalJournalStatementMethod
 import com.salesforce.referral.api.ApiResponse
 import com.salesforce.referral.api.ApiService
 import com.salesforce.referral.api.ReferralAPIConfig
+import com.salesforce.referral.api.ReferralAPIConfig.MEMBER_SHIP_RANDOM_NUMBER_COUNT
 import com.salesforce.referral.api.ReferralAPIConfig.getRequestUrl
 import com.salesforce.referral.api.safeApiCall
 import com.salesforce.referral.entities.AssociatedPersonAccountDetails
@@ -71,7 +72,7 @@ open class ReferralsRepository @Inject constructor(
                     ),
                     enrollmentChannel.channel,
                     memberStatus.status,
-                    getRandomString(8),
+                    getRandomString(MEMBER_SHIP_RANDOM_NUMBER_COUNT),
                     transactionalJournalFrequency.frequency,
                     transactionalJournalMethod.method
                 )
@@ -88,9 +89,14 @@ open class ReferralsRepository @Inject constructor(
     suspend fun enrollExistingAdvocateToPromotionWithMembershipNumber(
         promotionName: String,
         promotionCode: String,
-        membershipNumber: String
+        membershipNumber: String,
+        memberStatus: MemberStatus = MemberStatus.ACTIVE
     ): ApiResponse<ReferralEnrollmentResponse> {
-        return enrollExistingAdvocateToNewPromotion(promotionName, promotionCode, ReferralExistingEnrollmentRequest(membershipNumber = membershipNumber))
+        return enrollExistingAdvocateToNewPromotion(
+            promotionName,
+            promotionCode,
+            ReferralExistingEnrollmentRequest(membershipNumber = membershipNumber, memberStatus = memberStatus.status)
+        )
     }
 
     /**
@@ -102,9 +108,14 @@ open class ReferralsRepository @Inject constructor(
     suspend fun enrollExistingAdvocateToPromotionWithContactId(
         promotionName: String,
         promotionCode: String,
-        contactId: String
+        contactId: String,
+        memberStatus: MemberStatus = MemberStatus.ACTIVE
     ): ApiResponse<ReferralEnrollmentResponse> {
-        return enrollExistingAdvocateToNewPromotion(promotionName, promotionCode, ReferralExistingEnrollmentRequest(contactId = contactId))
+        return enrollExistingAdvocateToNewPromotion(
+            promotionName,
+            promotionCode,
+            ReferralExistingEnrollmentRequest(contactId = contactId, memberStatus = memberStatus.status)
+        )
     }
 
     private suspend fun enrollExistingAdvocateToNewPromotion(
@@ -121,7 +132,7 @@ open class ReferralsRepository @Inject constructor(
     /**
      * This function is responsible for making a POST network request to send referral events/emails to given recipients
      * @param referralCode - Referral Code to share with given recipients
-     * @param emails - Emails list
+     * @param emails - Emails list to share the referral code
      */
     suspend fun sendReferrals(
         referralCode: String,
