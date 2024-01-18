@@ -11,7 +11,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.salesforce.referral.BuildConfig
 import com.salesforce.referral.api.ApiService
-import com.salesforce.referral.api.ForceAuthenticator
+import com.salesforce.referral.api.ReferralForceAuthenticator
 import com.salesforce.referral.api.UnauthorizedInterceptor
 import dagger.Module
 import dagger.Provides
@@ -59,6 +59,6 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideUnauthorizedInterceptor(authenticator: ForceAuthenticator)
+    fun provideUnauthorizedInterceptor(authenticator: ReferralForceAuthenticator)
         = UnauthorizedInterceptor(authenticator)
 }

@@ -12,7 +12,7 @@ import android.util.Log
 /**
  * Logger framework class with standard logging functions.
  */
-object Logger {
+object ReferralLogger {
 
     private val isDebug = BuildConfig.LOG_ENABLED
 

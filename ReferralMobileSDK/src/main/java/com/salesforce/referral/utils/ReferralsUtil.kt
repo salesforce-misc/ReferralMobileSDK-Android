@@ -7,7 +7,7 @@
 
 package com.salesforce.referral.utils
 
-import com.salesforce.referral.Logger
+import com.salesforce.referral.ReferralLogger
 import com.salesforce.referral.api.ReferralAPIConfig.DATE_FORMAT_YYYYMMDDTHHMMSS
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -38,7 +38,7 @@ fun getCurrentDateTime(format: String = DATE_FORMAT_YYYYMMDDTHHMMSS): String? {
     return try {
         SimpleDateFormat(format, Locale.getDefault()).format(Calendar.getInstance().timeInMillis)
     } catch (e: java.lang.Exception) {
-        Logger.e(TAG, "Exception occurred when retrieving current date time in $format", e)
+        ReferralLogger.e(TAG, "Exception occurred when retrieving current date time in $format", e)
         null
     }
 }

@@ -17,7 +17,7 @@ import java.net.HttpURLConnection
  * UnauthorizedInterceptor class to handle access token refresh in case of unauthorized errors.
  */
 class UnauthorizedInterceptor(
-    private val authenticator: ForceAuthenticator
+    private val authenticator: ReferralForceAuthenticator
 ) : Interceptor {
     companion object {
         const val BEARER_HEADER = "Bearer "

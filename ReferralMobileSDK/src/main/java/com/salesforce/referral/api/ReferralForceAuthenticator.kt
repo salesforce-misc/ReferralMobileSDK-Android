@@ -10,7 +10,7 @@ package com.salesforce.referral.api
 /**
  * An interface that defines the necessary methods for handling access tokens in the Salesforce API.
  */
-interface ForceAuthenticator {
+interface ReferralForceAuthenticator {
 
     /**
      * Get a valid access token.
