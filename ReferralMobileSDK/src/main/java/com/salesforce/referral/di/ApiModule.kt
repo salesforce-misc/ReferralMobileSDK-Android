@@ -29,11 +29,6 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideBaseUrl() = "https://hutl.my.salesforce.com"
-    // This BASE URL should be passed from client app and provided here the default base URL for Retrofit Instance
-
-    @Provides
-    @Singleton
     fun provideGson(): Gson = GsonBuilder().setLenient().create()
 
     @Singleton
