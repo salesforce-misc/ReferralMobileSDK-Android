@@ -8,6 +8,7 @@
 package com.salesforce.referral
 
 import android.util.Log
+import com.salesforce.mobile.referrals.BuildConfig
 
 /**
  * Logger framework class with standard logging functions.

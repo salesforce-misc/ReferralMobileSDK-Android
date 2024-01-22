@@ -9,7 +9,7 @@ package com.salesforce.referral.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.salesforce.referral.BuildConfig
+import com.salesforce.mobile.referrals.BuildConfig
 import com.salesforce.referral.api.ApiService
 import com.salesforce.referral.api.ReferralForceAuthenticator
 import com.salesforce.referral.api.UnauthorizedInterceptor
