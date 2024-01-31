@@ -138,14 +138,15 @@ open class ReferralsRepository @Inject constructor(
         referralCode: String,
         emails: List<String>
     ): ApiResponse<ReferralEventResponse> {
+        val requestBody = ReferralEventRequest(
+            referralCode = referralCode,
+            joiningDate = getCurrentDateTime().orEmpty(),
+            referralEmails = Emails(emails)
+        )
         return safeApiCall {
             apiService.sendReferrals(
                 getRequestUrl(ReferralAPIConfig.Resource.ReferralEvent),
-                ReferralEventRequest(
-                    referralCode = referralCode,
-                    joiningDate = getCurrentDateTime().orEmpty(),
-                    referralEmails = Emails(emails)
-                )
+                requestBody
             )
         }
     }
