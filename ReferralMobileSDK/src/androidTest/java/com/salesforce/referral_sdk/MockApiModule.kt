@@ -15,4 +15,9 @@ class MockApiModule {
     @Singleton
     fun provideReferralForceAuthenticatorImpl(): ReferralForceAuthenticator =
         ReferralForceAuthImpl()
+
+    @Provides
+    @Singleton
+    fun provideBaseUrl(): String =
+        "https://abc.com"
 }

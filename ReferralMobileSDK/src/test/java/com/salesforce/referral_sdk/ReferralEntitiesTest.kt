@@ -4,6 +4,7 @@ import com.salesforce.referral.EnrollmentStatus
 import com.salesforce.referral.api.ReferralAPIConfig
 import com.salesforce.referral.entities.ATTRIBUTES_COUNTRY
 import com.salesforce.referral.entities.ATTRIBUTES_STATE
+import com.salesforce.referral.entities.ApiErrorResponse
 import com.salesforce.referral.entities.referral_event.ReferralEventType
 import com.salesforce.referral.utils.getRandomString
 import junit.framework.TestCase.assertEquals
@@ -97,5 +98,18 @@ class ReferralEntitiesTest {
         assertEquals(transactionJournal.membershipNumber, DataGenerator.MEMBERSHIP_NUMBER)
         assertEquals(transactionJournal.programName, DataGenerator.PROGRAM_NAME)
         assertEquals(transactionJournal.transactionJournalId, DataGenerator.TRANSACTION_JOURNAL_ID)
+    }
+
+    @Test
+    fun testApiErrorResponse() {
+        val errorResponse = ApiErrorResponse(
+            status = "true",
+            message = "Bad Request",
+            errorCode = "404"
+        )
+        assertNotNull(errorResponse)
+        assertEquals(errorResponse.status, "true")
+        assertEquals(errorResponse.message, "Bad Request")
+        assertEquals(errorResponse.errorCode, "404")
     }
 }
