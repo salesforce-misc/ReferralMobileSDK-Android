@@ -4,8 +4,8 @@ import com.google.gson.Gson
 import com.salesforce.referral.api.ApiService
 import com.salesforce.referral.entities.referral_event.Emails
 import com.salesforce.referral.entities.referral_event.ReferralEventRequest
-import com.salesforce.referral.entities.referral_event.ReferralEventResponse
 import com.salesforce.referral.repository.ReferralsRepository
+import com.salesforce.referral_sdk.DataGenerator.DUMMY_EMAIL
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -44,15 +44,9 @@ class ApiServiceTest {
     }
 
     @Test
-    fun testSendReferralsAPISuccess(){
+    fun testSendReferralsAPISuccess() {
         runBlocking {
-            val mockReferralEventResponse = ReferralEventResponse(
-                contactId = "0031Q00002jbmK6",
-                referralId = "0wi1Q0000008W05",
-                referralStage = "123",
-                transactionJournalIds = mutableListOf(),
-                voucherId = "123abc"
-            )
+            val mockReferralEventResponse = DataGenerator.getReferralEventResponse()
             val response = MockResponse()
                 .setResponseCode(HttpURLConnection.HTTP_OK)
                 .setBody(Gson().toJson(mockReferralEventResponse))
@@ -60,10 +54,10 @@ class ApiServiceTest {
             val actualResponse = apiService.sendReferrals(
                 mockWebServer.url("/").toString(),
                 ReferralEventRequest(
-                    referralCode = "KB6T7WZJ-TESTRM",
-                    joiningDate = "2024-01-17T20:29:48",
-                    eventType = "Refer",
-                    referralEmails = Emails(emails = listOf("abc@salesforce.com"))
+                    referralCode = DataGenerator.REFERRAL_CODE,
+                    joiningDate = DataGenerator.JOINING_DATE,
+                    eventType = DataGenerator.REFERRAL_EVENT_TYPE,
+                    referralEmails = Emails(emails = listOf(DUMMY_EMAIL))
                 )
             )
             mockWebServer.takeRequest()
@@ -77,13 +71,7 @@ class ApiServiceTest {
             val response1 = MockResponse()
                 .setResponseCode(HttpURLConnection.HTTP_UNAUTHORIZED)
             mockWebServer.enqueue(response1)
-            val mockReferralEventResponse = ReferralEventResponse(
-                contactId = "0031Q00002jbmK6",
-                referralId = "0wi1Q0000008W05",
-                referralStage = "123",
-                transactionJournalIds = mutableListOf(),
-                voucherId = "123abc"
-            )
+            val mockReferralEventResponse = DataGenerator.getReferralEventResponse()
             val response2 = MockResponse()
                 .setResponseCode(HttpURLConnection.HTTP_OK)
                 .setBody(Gson().toJson(mockReferralEventResponse))
@@ -92,10 +80,10 @@ class ApiServiceTest {
             val actualResponse = apiService.sendReferrals(
                 mockWebServer.url("/").toString(),
                 ReferralEventRequest(
-                    referralCode = "KB6T7WZJ-TESTRM",
-                    joiningDate = "2024-01-17T20:29:48",
-                    eventType = "Refer",
-                    referralEmails = Emails(emails = listOf("abc@salesforce.com"))
+                    referralCode = DataGenerator.REFERRAL_CODE,
+                    joiningDate = DataGenerator.JOINING_DATE,
+                    eventType = DataGenerator.REFERRAL_EVENT_TYPE,
+                    referralEmails = Emails(emails = listOf(DUMMY_EMAIL))
                 )
             )
             mockWebServer.takeRequest()
