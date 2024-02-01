@@ -7,7 +7,6 @@ import com.salesforce.referral.entities.referral_event.ReferralEventRequest
 import com.salesforce.referral.repository.ReferralsRepository
 import com.salesforce.referral_sdk.DataGenerator.DUMMY_EMAIL
 import junit.framework.TestCase
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -27,7 +26,6 @@ class ApiServiceTest {
 
     private lateinit var referralNetworkMockClient: ReferralNetworkMockClient
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)

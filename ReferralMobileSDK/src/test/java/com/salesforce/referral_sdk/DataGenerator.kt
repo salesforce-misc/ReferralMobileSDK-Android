@@ -23,6 +23,14 @@ object DataGenerator {
     const val VOUCHER_ID = "123abc"
     const val TRANSACTION_JOURNAL_ID = "0lV1Q000000Ch32"
 
+    const val ERROR_MESSAGE = "An unexpected error occurred. Please include this ErrorId if you contact support: 1933027655-144670 (-464075996)"
+    const val REFERRAL_ERROR = "[\n" +
+            "  {\n" +
+            "    \"message\": \"${ERROR_MESSAGE}\",\n" +
+            "    \"errorCode\": \"UNKNOWN_EXCEPTION\"\n" +
+            "  }\n" +
+            "]"
+
     fun getReferralEventRequest(): ReferralEventRequest {
         return ReferralEventRequest(
             referralCode = REFERRAL_CODE,

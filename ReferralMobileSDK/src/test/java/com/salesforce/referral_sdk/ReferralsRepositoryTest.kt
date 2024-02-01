@@ -10,15 +10,20 @@ import com.salesforce.referral_sdk.DataGenerator.CONTACT_ID
 import com.salesforce.referral_sdk.DataGenerator.DUMMY_EMAIL
 import com.salesforce.referral_sdk.DataGenerator.DUMMY_FIRST_NAME
 import com.salesforce.referral_sdk.DataGenerator.DUMMY_LAST_NAME
+import com.salesforce.referral_sdk.DataGenerator.ERROR_MESSAGE
 import com.salesforce.referral_sdk.DataGenerator.MEMBERSHIP_NUMBER
 import com.salesforce.referral_sdk.DataGenerator.PROGRAM_NAME
 import com.salesforce.referral_sdk.DataGenerator.PROMOTION_REFERRAL_CODE
+import com.salesforce.referral_sdk.DataGenerator.REFERRAL_CODE
+import com.salesforce.referral_sdk.DataGenerator.REFERRAL_ERROR
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
 import kotlinx.coroutines.runBlocking
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Response
@@ -35,6 +40,8 @@ class ReferralsRepositoryTest {
         apiService = mockk<ApiService>(relaxed = true)
 
         repository = ReferralsRepository(apiService)
+
+        repository.setInstanceUrl("mock_instance_url")
     }
 
     @Test
@@ -70,23 +77,38 @@ class ReferralsRepositoryTest {
     @Test
     fun `send referrals failure response`() {
         runBlocking {
-
+            val responseBody = REFERRAL_ERROR.toResponseBody("application/json".toMediaTypeOrNull())
             coEvery {
-                safeApiCall { apiService.sendReferrals(any(), any()) }
-            } returns ApiResponse.Error("HTTP 401 Unauthorized")
+                apiService.sendReferrals(any(), any())
+            } returns Response.error(401, responseBody)
 
 
-            val response = repository.sendReferrals("KB6T7WZJ-TESTRM", listOf("abc@salesforce.com"))
+            val response = repository.sendReferrals(REFERRAL_CODE, listOf(DUMMY_EMAIL))
             assertNotNull(response)
             when (response) {
                 is ApiResponse.Error -> {
                     val message = response.errorMessage
                     assertNotNull(message)
+                    assertEquals(message, ERROR_MESSAGE)
                 }
                 else -> {
 
                 }
             }
+        }
+    }
+
+    @Test
+    fun `send referrals network error response`() {
+        runBlocking {
+
+            coEvery {
+                safeApiCall { apiService.sendReferrals(any(), any()) }
+            } returns ApiResponse.NetworkError
+
+
+            val response = repository.sendReferrals(REFERRAL_CODE, listOf(DUMMY_EMAIL))
+            assertNotNull(response)
         }
     }
 
