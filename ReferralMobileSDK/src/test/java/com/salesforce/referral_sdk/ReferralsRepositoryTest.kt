@@ -68,7 +68,8 @@ class ReferralsRepositoryTest {
                     assertEquals(data.voucherId, DataGenerator.VOUCHER_ID)
                 }
                 else -> {
-
+                    // Receiving any other response than Success should fail the test case.
+                    assert(false)
                 }
             }
         }
@@ -92,7 +93,8 @@ class ReferralsRepositoryTest {
                     assertEquals(message, ERROR_MESSAGE)
                 }
                 else -> {
-
+                    // Receiving any other response than Error should fail the test case.
+                    assert(false)
                 }
             }
         }
