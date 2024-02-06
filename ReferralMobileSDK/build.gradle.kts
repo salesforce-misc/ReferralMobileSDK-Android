@@ -13,7 +13,7 @@ android {
         minSdk = 24
         targetSdk = 33
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.salesforce.referral_sdk.ReferralTestRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -66,11 +66,20 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
     // Google truth for assertion
     testImplementation("com.google.truth:truth:1.1.3")
-    testImplementation("org.mockito:mockito-core:5.3.1")
+    testImplementation("org.mockito:mockito-core:3.3.3")
+
+    //Rx
+    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
+    implementation("io.reactivex.rxjava2:rxjava:2.2.12")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.6.1")
 
     //Mockk
     testImplementation("io.mockk:mockk:1.12.4")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
+    // ...with Kotlin.
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
 }
