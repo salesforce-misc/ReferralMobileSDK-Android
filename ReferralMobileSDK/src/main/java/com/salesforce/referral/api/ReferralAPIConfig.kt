@@ -15,6 +15,9 @@ object ReferralAPIConfig {
     private const val API_VERSION_59 = "v59.0"
     lateinit var instanceUrl: String
 
+    const val HEADER_SFORCE_OPTION_KEY = "Sforce-Call-Options"
+    const val HEADER_SFORCE_OPTION_Value = "client=referralMobileSdk-Android"
+
     /**
      * Sealed class that is used to define the Resources and its corresponding parameters.
      */

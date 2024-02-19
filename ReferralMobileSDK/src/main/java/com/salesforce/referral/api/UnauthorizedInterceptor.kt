@@ -7,6 +7,8 @@
 
 package com.salesforce.referral.api
 
+import com.salesforce.referral.api.ReferralAPIConfig.HEADER_SFORCE_OPTION_KEY
+import com.salesforce.referral.api.ReferralAPIConfig.HEADER_SFORCE_OPTION_Value
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -51,6 +53,7 @@ class UnauthorizedInterceptor(
         val bearerTokenValue = BEARER_HEADER + accessToken
         return request.newBuilder()
             .addHeader(HEADER_AUTHORIZATION, bearerTokenValue)
+            .addHeader(HEADER_SFORCE_OPTION_KEY, HEADER_SFORCE_OPTION_Value)
             .build()
     }
 }
