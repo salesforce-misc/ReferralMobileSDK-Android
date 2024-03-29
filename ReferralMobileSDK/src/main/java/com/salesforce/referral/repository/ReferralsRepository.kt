@@ -57,6 +57,7 @@ open class ReferralsRepository @Inject constructor(
         transactionalJournalMethod: TransactionalJournalStatementMethod = TransactionalJournalStatementMethod.EMAIL
     ): ApiResponse<ReferralEnrollmentResponse> {
         return safeApiCall {
+            // State and Country fields are custom fields, which are not supported as of now, hence commented below
             apiService.enrollNewCustomerAsAdvocateOfPromotion(
                 getRequestUrl(ReferralAPIConfig.Resource.ReferralMemberEnrolment(promotionName, promotionCode)),
                 ReferralNewEnrollmentRequestBody(
