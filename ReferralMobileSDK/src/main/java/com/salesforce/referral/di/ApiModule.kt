@@ -31,7 +31,6 @@ object ApiModule {
     @Singleton
     fun provideGson(): Gson = GsonBuilder().setLenient().create()
 
-    @Singleton
     @Provides
     fun provideOkHttpClient(unauthorizedInterceptor: UnauthorizedInterceptor): OkHttpClient {
         return OkHttpClient.Builder().apply {
@@ -46,7 +45,6 @@ object ApiModule {
     }
 
     @Provides
-    @Singleton
     fun provideRetrofit(baseUrl: String, gson: Gson, client: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .baseUrl(baseUrl)
@@ -59,7 +57,6 @@ object ApiModule {
         retrofit.create(ApiService::class.java)
 
     @Provides
-    @Singleton
     fun provideUnauthorizedInterceptor(authenticator: ReferralForceAuthenticator)
         = UnauthorizedInterceptor(authenticator)
 }
